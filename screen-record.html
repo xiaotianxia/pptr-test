@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>record</title>
+</head>
+
+<body>
+  <button style="cursor: pointer;">共享屏幕</button>
+
+<script>
+  const button = document.querySelector('button');
+
+  // 为按钮添加'click'事件的事件监听器
+  button.addEventListener("click", async () => {
+    // 使用MediaDevices API请求访问用户的屏幕
+    const stream = await navigator.mediaDevices.getDisplayMedia({
+      video: true,
+    });
+
+    // 确定录制的媒体类型和编解码器
+    const mime = MediaRecorder.isTypeSupported('video/webm;codecs=h264')
+      ? 'video/webm;codecs=h264'
+      : 'video/webm';
+
+    // 使用屏幕共享流和指定的MIME类型创建MediaRecorder实例
+    const mediaRecorder = new MediaRecorder(stream, { mimeType: mime });
+
+    // 初始化数组以存储以块为单位的录制视频数据
+    const chunks = [];
+
+    // 为MediaRecorder添加'dataavailable'事件的事件监听器
+    mediaRecorder.addEventListener('dataavailable', function (e) {
+      // 将每个数据块推送到'chunks'数组中
+      chunks.push(e.data);
+    });
+
+    // 为MediaRecorder添加'stop'事件的事件监听器
+    mediaRecorder.addEventListener('stop', () => {
+      // 将录制的视频块合并为Blob
+      const blob = new Blob(chunks, { type: chunks[0].type });
+
+      // 为Blob创建URL以生成可下载的链接
+      const url = URL.createObjectURL(blob);
+
+      // 创建一个隐藏的'a'元素，用于触发下载
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'video.webm'; // 设置下载的视频文件的默认文件名
+      a.click(); // 模拟对'a'元素的点击以启动下载
+    });
+
+    // 使用MediaRecorder开始录制屏幕
+    mediaRecorder.start();
+  });
+</script>
+</body>
+
+</html>

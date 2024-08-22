@@ -2,6 +2,7 @@
 yarn.error.log
 node_modules
 /dist
+.pptr-data
 
 test/unit/coverage
 test/e2e/reports
