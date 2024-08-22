@@ -1,11 +1,11 @@
 import puppeteer, { KnownDevices } from 'puppeteer';
-// import mockData from './data/1.js';
-import mockData from './data/2.js';
+import mockData from './data/3.js';
 
 // 设备类型
 const iPhone15 = KnownDevices['iPhone 15 Pro'];
 
 const sleep = (n = 3) => new Promise(res => setTimeout(res, n * 1000));
+
 
 const  autoScroll = async (page, distance = 100, toScrollHeight = 120000) => {
   return await page.evaluate(async ({ distance, toScrollHeight }) => {
@@ -51,7 +51,7 @@ page.on('request', req => {
   const url = req.url();
   if (req.isInterceptResolutionHandled()) { return; }
   
-  if (req.resourceType() === 'xhr' && url.includes('mtop.fliggy.trade.item.buildOrder')) {
+  if (req.resourceType() === 'xhr' && url.includes('mtop.fliggy.trade.hotel.buildOrder')) {
     console.log(url);
     
     req.respond({
@@ -70,7 +70,7 @@ page.on('request', req => {
 
 
 await page.goto(
-  'https://market.m.taobao.com/app/trip/rx-buy/pages/confirm',
+  'https://market.m.taobao.com/app/trip/rx-hotel-buy/pages/confirm?bizType=hotel',
   {
     waitUntil: ['load', 'networkidle2'],
   }
