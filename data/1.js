@@ -244,11 +244,11 @@ export default {
                 "fields": {
                     "needReset": false,
                     "phoneNumber": "17601026657",
-                    "name": "代振",
+                    "name": "代振123",
                     "disabled": false,
                     "placeholder": "请输入姓名",
                     "title": "姓名",
-                    "value": "代振"
+                    "value": "代振123"
                 },
                 "validate": {
                     "msg": [
@@ -299,7 +299,7 @@ export default {
                 "type": "block$fliggyTopTitle",
                 "fields": {
                     "isInlandFlightChange": false,
-                    "title": "填写订单1111"
+                    "title": "填写订单test"
                 }
             },
             "fliggyTripPassengerConfirm_fliggyTripPassengerConfirm": {

@@ -4,8 +4,8 @@ import puppeteer, { KnownDevices } from 'puppeteer';
 const iPhone15 = KnownDevices['iPhone 15 Pro'];
 
 async function autoScroll(page, distance = 100, toScrollHeight = 120000) {
-  await page.evaluate(async ({ distance, toScrollHeight }) => {
-    await new Promise((resolve) => {
+  return await page.evaluate(async ({ distance, toScrollHeight }) => {
+    return await new Promise((resolve) => {
       try {
         var totalHeight = 0;
         var timer = setInterval(([distanceTime, toScrollHeightTime]) => {
@@ -13,10 +13,12 @@ async function autoScroll(page, distance = 100, toScrollHeight = 120000) {
           var scrollHeight = scrollView.scrollHeight;
           scrollView.scrollBy(0, distanceTime);
           totalHeight += distanceTime;
+
+          console.log('-----totalHeight', totalHeight);
           
           if (totalHeight >= scrollHeight || totalHeight > toScrollHeightTime) {
             clearInterval(timer);
-            resolve();
+            resolve(totalHeight);
           }
         }, 100, [distance, toScrollHeight]);
       } catch (err) {
@@ -38,4 +40,5 @@ await page.emulate(iPhone15);
 
 await page.goto('https://market.m.taobao.com/app/trip/rx-order-list-new/pages/index');
 
-await autoScroll(page, 80, 50 * 1000);
+const height = await autoScroll(page, 80, 50 * 1000);
+console.log(height);

@@ -8,11 +8,11 @@ const browser = await puppeteer.launch({
 
 const page = await browser.newPage();
 
-await page.setViewport({ width: 1280, height: 720 });
+await page.setViewport({ width: 1280, height: 1200 });
 
 await page.goto('https://www.baidu.com');
 
-await page.locator('#kw').fill('正泰集团');
+await page.locator('#kw').fill('正泰集团是一个什么样的公司');
 await page.locator('#su').click();
 
 await sleep();
@@ -25,3 +25,7 @@ await page.screenshot({
 await sleep();
 
 await page.close();
+
+await sleep(1);
+
+await browser.close();
