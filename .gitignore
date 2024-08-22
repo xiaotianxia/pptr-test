@@ -1,0 +1,36 @@
+.DS_Store
+yarn.error.log
+node_modules
+/dist
+
+test/unit/coverage
+test/e2e/reports
+selenium-debug.log
+
+# local env files
+.env.local
+.env.*.local
+*.local
+
+# Log files
+**/*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw*
+
+#webstorm
+*-compiled.js
+*-compiled.js.map
+index-compiled.js
+index-compiled.js.map
+
+/.history
+/node_modules/
